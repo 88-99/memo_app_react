@@ -15,8 +15,10 @@ export default function AddMemo({ onAddMemo, rows, cols }) {
 
       <button
         onClick={() => {
-          onAddMemo(text);
-          setText("");
+          if (text) {
+            onAddMemo(text);
+            setText("");
+          }
         }}
       >
         Save

@@ -28,8 +28,10 @@ export default function Memo({
               id: initialData.id,
               content: text,
             };
-            onSave(updatedData);
-            toggleEditing();
+            if (updatedData.content) {
+              onSave(updatedData);
+              toggleEditing();
+            }
           }}
         >
           Save
