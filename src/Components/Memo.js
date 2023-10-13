@@ -2,9 +2,9 @@ import { useState } from "react";
 
 export default function Memo({
   initialData,
-  onSave,
   isEditing,
   toggleEditing,
+  onSave,
   onDelete,
   rows,
   cols,

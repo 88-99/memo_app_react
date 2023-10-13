@@ -6,7 +6,7 @@ export default function AddMemo({ onAddMemo, rows, cols }) {
   return (
     <div>
       <textarea
-        placeholder="メモを入力"
+        placeholder="Enter a new memo."
         value={text}
         onChange={(e) => setText(e.target.value)}
         rows={rows}
@@ -15,8 +15,8 @@ export default function AddMemo({ onAddMemo, rows, cols }) {
 
       <button
         onClick={() => {
-          setText("");
           onAddMemo(text);
+          setText("");
         }}
       >
         Save

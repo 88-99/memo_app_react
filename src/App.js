@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import MemoList from "./Components/MemoList.js";
 import Memo from "./Components/Memo.js";
 import AddMemo from "./Components/AddMemo.js";
 
 export const App = () => {
-  const [memos, setMemos] = useState(initialMemos);
+  const [memos, setMemos] = useState(() => {
+    const storedMemos = localStorage.getItem("memos");
+
+    return storedMemos ? JSON.parse(storedMemos) : null;
+  });
+
   const [selectedId, setSelectedId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const selectedMemo = memos.find((m) => m.id === selectedId);
+  const selectedMemo = memos ? memos.find((m) => m.id === selectedId) : null;
+
+  useEffect(() => {
+    localStorage.setItem("memos", JSON.stringify(memos));
+  }, [memos]);
 
   const handleSave = (updateData) => {
     const nextMemo = memos.map((m) => {
@@ -18,7 +27,10 @@ export const App = () => {
   };
 
   const handleAddMemo = (content) => {
-    setMemos([...memos, { id: nextId++, content }]);
+    memos
+      ? setMemos([...memos, { id: memos[memos.length - 1].id + 1, content }])
+      : setMemos([{ id: 0, content }]);
+    setSelectedId(null);
   };
 
   const handelToggleEditing = () => {
@@ -48,10 +60,10 @@ export const App = () => {
         <Memo
           key={selectedId}
           initialData={selectedMemo}
-          onSave={handleSave}
           isEditing={isEditing}
-          onDelete={handleDeleteMemo}
           toggleEditing={handelToggleEditing}
+          onSave={handleSave}
+          onDelete={handleDeleteMemo}
           rows={20}
           cols={100}
         />
@@ -59,10 +71,3 @@ export const App = () => {
     </div>
   );
 };
-
-let nextId = 3;
-const initialMemos = [
-  { id: 0, content: "content1" },
-  { id: 1, content: "content2" },
-  { id: 2, content: "content3" },
-];
