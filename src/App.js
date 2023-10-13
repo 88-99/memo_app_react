@@ -8,7 +8,7 @@ export const App = () => {
   const [memos, setMemos] = useState(() => {
     const storedMemos = localStorage.getItem("memos");
 
-    return storedMemos ? JSON.parse(storedMemos) : null;
+    return storedMemos ? JSON.parse(storedMemos) : [{ id: 0, content: "" }];
   });
 
   const [selectedId, setSelectedId] = useState(null);
@@ -27,9 +27,7 @@ export const App = () => {
   };
 
   const handleAddMemo = (content) => {
-    memos
-      ? setMemos([...memos, { id: memos[memos.length - 1].id + 1, content }])
-      : setMemos([{ id: 0, content }]);
+    setMemos([...memos, { id: memos[memos.length - 1].id + 1, content }]);
     setSelectedId(null);
   };
 
