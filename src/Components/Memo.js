@@ -64,5 +64,5 @@ export default function Memo({
     );
   }
 
-  return <>{memoContent}</>;
+  return <div className="content">{memoContent}</div>;
 }
