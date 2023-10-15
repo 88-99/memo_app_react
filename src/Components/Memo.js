@@ -14,47 +14,55 @@ export default function Memo({
   let memoContent;
   if (isEditing) {
     memoContent = (
-      <section>
-        <textarea
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          rows={rows}
-          cols={cols}
-        />
-        <button
-          onClick={() => {
-            const updatedData = {
-              id: initialData.id,
-              content: text,
-            };
-            if (updatedData.content) {
-              onSave(updatedData);
+      <div className="memo">
+        <div>
+          <button
+            onClick={() => {
+              const updatedData = {
+                id: initialData.id,
+                content: text,
+              };
+              if (updatedData.content) {
+                onSave(updatedData);
+                toggleEditing();
+              }
+            }}
+          >
+            Save
+          </button>
+          <button
+            onClick={() => {
+              onDelete(initialData.id);
               toggleEditing();
-            }
-          }}
-        >
-          Save
-        </button>
-        <button
-          onClick={() => {
-            onDelete(initialData.id);
-            toggleEditing();
-          }}
-        >
-          Delete
-        </button>
-      </section>
+            }}
+          >
+            Delete
+          </button>
+        </div>
+        <div>
+          <textarea
+            className="text_box"
+            placeholder="Enter text."
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={rows}
+            cols={cols}
+          />
+        </div>
+      </div>
     );
   } else {
     memoContent = (
-      <section>
-        {initialData.content}{" "}
-        {<button onClick={() => toggleEditing()}>Edit</button>}
-        {<button onClick={() => onDelete(initialData.id)}>Delete</button>}
-      </section>
+      <div className="memo">
+        <div>
+          {<button onClick={() => toggleEditing()}>Edit</button>}
+          {<button onClick={() => onDelete(initialData.id)}>Delete</button>}
+        </div>
+        <div className="text_box">{initialData.content}</div>
+      </div>
     );
   }
 
-  return <section>{memoContent}</section>;
+  return <>{memoContent}</>;
 }

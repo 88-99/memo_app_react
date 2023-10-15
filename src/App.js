@@ -41,7 +41,7 @@ export const App = () => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className="container">
       <MemoList
         memos={memos}
         selectedId={selectedId}
