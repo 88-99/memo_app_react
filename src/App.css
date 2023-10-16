@@ -79,11 +79,6 @@ li {
   width: 16em;
 }
 
-.memo {
-  display: flex;
-  flex-flow: column;
-}
-
 .text_box {
   width: 600px;
   height: auto;

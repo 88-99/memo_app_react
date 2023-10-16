@@ -14,7 +14,7 @@ export default function Memo({
   let memoContent;
   if (isEditing) {
     memoContent = (
-      <div className="memo">
+      <div>
         <div>
           <button
             onClick={() => {
@@ -54,7 +54,7 @@ export default function Memo({
     );
   } else {
     memoContent = (
-      <div className="memo">
+      <div>
         <div>
           {<button onClick={() => toggleEditing()}>Edit</button>}
           {<button onClick={() => onDelete(initialData.id)}>Delete</button>}
