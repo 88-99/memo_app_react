@@ -39,6 +39,7 @@
 
 .container {
   width: 80%;
+  min-height: 24em;
   margin: 3em auto;
   padding: 3em 3em;
   background: #ccff99;
@@ -67,7 +68,7 @@
 
 ul {
   list-style: none;
-  margin-top: 0px;
+  margin-top: 30px;
   padding-inline-start: 0;
 }
 

@@ -8,12 +8,12 @@ export const App = () => {
   const [memos, setMemos] = useState(() => {
     const storedMemos = localStorage.getItem("memos");
 
-    return storedMemos ? JSON.parse(storedMemos) : [{ id: 0, content: "" }];
+    return storedMemos && JSON.parse(storedMemos);
   });
 
   const [selectedId, setSelectedId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const selectedMemo = memos ? memos.find((m) => m.id === selectedId) : null;
+  const selectedMemo = memos && memos.find((m) => m.id === selectedId);
 
   useEffect(() => {
     localStorage.setItem("memos", JSON.stringify(memos));
@@ -27,8 +27,10 @@ export const App = () => {
   };
 
   const handleAddMemo = (content) => {
-    setMemos([...memos, { id: memos[memos.length - 1].id + 1, content }]);
-    setSelectedId(null);
+    const newId =
+      !memos || memos.length === 0 ? 0 : memos[memos.length - 1].id + 1;
+    setMemos([...(memos || []), { id: newId, content }]);
+    setSelectedId(newId);
   };
 
   const handelToggleEditing = () => {
@@ -54,18 +56,20 @@ export const App = () => {
           rows={20}
           cols={100}
         />
-      ) : selectedId !== null ? (
-        <Memo
-          key={selectedId}
-          initialData={selectedMemo}
-          isEditing={isEditing}
-          toggleEditing={handelToggleEditing}
-          onSave={handleSave}
-          onDelete={handleDeleteMemo}
-          rows={20}
-          cols={100}
-        />
-      ) : null}
+      ) : (
+        selectedId !== null && (
+          <Memo
+            key={selectedId}
+            initialData={selectedMemo}
+            isEditing={isEditing}
+            toggleEditing={handelToggleEditing}
+            onSave={handleSave}
+            onDelete={handleDeleteMemo}
+            rows={20}
+            cols={100}
+          />
+        )
+      )}
     </div>
   );
 };
