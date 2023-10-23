@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function AddMemo({ onAddMemo, rows, cols }) {
+export default function NewMemo({ onAdd }) {
   const [text, setText] = useState("");
 
   return (
@@ -9,7 +9,7 @@ export default function AddMemo({ onAddMemo, rows, cols }) {
         <button
           onClick={() => {
             if (text) {
-              onAddMemo(text);
+              onAdd(text);
               setText("");
             }
           }}
@@ -23,8 +23,8 @@ export default function AddMemo({ onAddMemo, rows, cols }) {
           placeholder="Enter text."
           value={text}
           onChange={(e) => setText(e.target.value)}
-          rows={rows}
-          cols={cols}
+          rows={20}
+          cols={100}
         />
       </div>
     </div>

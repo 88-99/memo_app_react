@@ -6,8 +6,6 @@ export default function Memo({
   toggleEditing,
   onSave,
   onDelete,
-  rows,
-  cols,
 }) {
   const [text, setText] = useState(initialData.content);
 
@@ -46,8 +44,8 @@ export default function Memo({
             type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            rows={rows}
-            cols={cols}
+            rows={20}
+            cols={100}
           />
         </div>
       </div>

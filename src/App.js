@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import MemoList from "./Components/MemoList.js";
 import Memo from "./Components/Memo.js";
-import AddMemo from "./Components/AddMemo.js";
+import NewMemo from "./Components/NewMemo.js";
 
 export const App = () => {
   const [memos, setMemos] = useState(() => {
@@ -26,7 +26,7 @@ export const App = () => {
     setMemos(nextMemo);
   };
 
-  const handleAddMemo = (content) => {
+  const handleAdd = (content) => {
     const newId =
       !memos || memos.length === 0 ? 0 : memos[memos.length - 1].id + 1;
     setMemos([...(memos || []), { id: newId, content }]);
@@ -37,7 +37,7 @@ export const App = () => {
     setIsEditing((isEditing) => !isEditing);
   };
 
-  const handleDeleteMemo = (memoId) => {
+  const handleDelete = (memoId) => {
     setMemos(memos.filter((m) => m.id !== memoId));
     setSelectedId(null);
   };
@@ -50,12 +50,7 @@ export const App = () => {
         onSelect={(id) => setSelectedId(id)}
       />
       {selectedId === "add" ? (
-        <AddMemo
-          onSave={handleSave}
-          onAddMemo={handleAddMemo}
-          rows={20}
-          cols={100}
-        />
+        <NewMemo onSave={handleSave} onAdd={handleAdd} />
       ) : (
         selectedId !== null && (
           <Memo
@@ -64,9 +59,7 @@ export const App = () => {
             isEditing={isEditing}
             toggleEditing={handelToggleEditing}
             onSave={handleSave}
-            onDelete={handleDeleteMemo}
-            rows={20}
-            cols={100}
+            onDelete={handleDelete}
           />
         )
       )}
