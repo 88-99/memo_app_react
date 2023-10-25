@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { IsLoggedInContext } from "./IsLoggedInContext.js";
 
 export default function Memo({
   initialData,
@@ -8,9 +9,10 @@ export default function Memo({
   onDelete,
 }) {
   const [text, setText] = useState(initialData.content);
+  const isLoggedIn = useContext(IsLoggedInContext);
 
   let memoContent;
-  if (isEditing) {
+  if (isLoggedIn && isEditing) {
     memoContent = (
       <div>
         <div>
@@ -53,10 +55,12 @@ export default function Memo({
   } else {
     memoContent = (
       <div>
-        <div>
-          {<button onClick={() => toggleEditing()}>Edit</button>}
-          {<button onClick={() => onDelete(initialData.id)}>Delete</button>}
-        </div>
+        {isLoggedIn && (
+          <div>
+            {<button onClick={() => toggleEditing()}>Edit</button>}
+            {<button onClick={() => onDelete(initialData.id)}>Delete</button>}
+          </div>
+        )}
         <div className="text_box">{initialData.content}</div>
       </div>
     );
