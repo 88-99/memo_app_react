@@ -51,7 +51,10 @@ export const App = () => {
   return (
     <IsLoggedInContext.Provider value={isLoggedIn}>
       <div className="container">
-        <button onClick={() => handelToggleLoggedIn()}>
+        <button
+          className="isLoggedIn_button"
+          onClick={() => handelToggleLoggedIn()}
+        >
           {isLoggedIn ? "Log out" : "Log in"}
         </button>
         <MemoList
