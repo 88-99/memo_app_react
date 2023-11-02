@@ -3,7 +3,7 @@ import "./App.css";
 import MemoList from "./Components/MemoList.js";
 import Memo from "./Components/Memo.js";
 import NewMemo from "./Components/NewMemo.js";
-import { IsLoggedInContext } from "./Components/IsLoggedInContext.js";
+import { LoginContext } from "./Components/LoginContext.js";
 
 export const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,10 +49,10 @@ export const App = () => {
   };
 
   return (
-    <IsLoggedInContext.Provider value={isLoggedIn}>
+    <LoginContext.Provider value={isLoggedIn}>
       <div className="container">
         <button
-          className="isLoggedIn_button"
+          className="login_logout_button"
           onClick={() => handelToggleLoggedIn()}
         >
           {isLoggedIn ? "Log out" : "Log in"}
@@ -77,6 +77,6 @@ export const App = () => {
           )
         )}
       </div>
-    </IsLoggedInContext.Provider>
+    </LoginContext.Provider>
   );
 };

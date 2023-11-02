@@ -110,7 +110,7 @@ button {
   cursor: pointer;
 }
 
-.isLoggedIn_button {
+.login_logout_button {
   height: 34px;
   width: 140px;
   margin-right: 30px;

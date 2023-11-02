@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { IsLoggedInContext } from "./IsLoggedInContext.js";
+import { LoginContext } from "./LoginContext.js";
 
 export default function MemoList({ memos, onSelect, selectedId }) {
-  const isLoggedIn = useContext(IsLoggedInContext);
+  const isLoggedIn = useContext(LoginContext);
 
   return (
     <div className="list_box">

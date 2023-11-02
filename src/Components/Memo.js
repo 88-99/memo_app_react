@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { IsLoggedInContext } from "./IsLoggedInContext.js";
+import { LoginContext } from "./LoginContext.js";
 
 export default function Memo({
   initialData,
@@ -9,7 +9,7 @@ export default function Memo({
   onDelete,
 }) {
   const [text, setText] = useState(initialData.content);
-  const isLoggedIn = useContext(IsLoggedInContext);
+  const isLoggedIn = useContext(LoginContext);
 
   let memoContent;
   if (isLoggedIn && isEditing) {
