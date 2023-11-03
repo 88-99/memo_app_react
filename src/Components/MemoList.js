@@ -1,9 +1,16 @@
+import { useContext } from "react";
+import { LoginContext } from "./LoginContext.js";
+
 export default function MemoList({ memos, onSelect, selectedId }) {
+  const isLoggedIn = useContext(LoginContext);
+
   return (
     <div className="list_box">
-      <button className="add-button" onClick={() => onSelect("add")}>
-        +
-      </button>
+      {isLoggedIn && (
+        <button className="add-button" onClick={() => onSelect("add")}>
+          +
+        </button>
+      )}
       <ul>
         {memos &&
           memos.map((memo) => (

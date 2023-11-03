@@ -3,8 +3,10 @@ import "./App.css";
 import MemoList from "./Components/MemoList.js";
 import Memo from "./Components/Memo.js";
 import NewMemo from "./Components/NewMemo.js";
+import { LoginContext } from "./Components/LoginContext.js";
 
 export const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [memos, setMemos] = useState(() => {
     const storedMemos = localStorage.getItem("memos");
 
@@ -18,6 +20,10 @@ export const App = () => {
   useEffect(() => {
     localStorage.setItem("memos", JSON.stringify(memos));
   }, [memos]);
+
+  const handelToggleLoggedIn = () => {
+    setIsLoggedIn((isLoggedIn) => !isLoggedIn);
+  };
 
   const handleSave = (updateData) => {
     const nextMemo = memos.map((m) => {
@@ -43,26 +49,34 @@ export const App = () => {
   };
 
   return (
-    <div className="container">
-      <MemoList
-        memos={memos}
-        selectedId={selectedId}
-        onSelect={(id) => setSelectedId(id)}
-      />
-      {selectedId === "add" ? (
-        <NewMemo onSave={handleSave} onAdd={handleAdd} />
-      ) : (
-        selectedId !== null && (
-          <Memo
-            key={selectedId}
-            initialData={selectedMemo}
-            isEditing={isEditing}
-            toggleEditing={handelToggleEditing}
-            onSave={handleSave}
-            onDelete={handleDelete}
-          />
-        )
-      )}
-    </div>
+    <LoginContext.Provider value={isLoggedIn}>
+      <div className="container">
+        <button
+          className="login_logout_button"
+          onClick={() => handelToggleLoggedIn()}
+        >
+          {isLoggedIn ? "Log out" : "Log in"}
+        </button>
+        <MemoList
+          memos={memos}
+          selectedId={selectedId}
+          onSelect={(id) => setSelectedId(id)}
+        />
+        {isLoggedIn && selectedId === "add" ? (
+          <NewMemo onSave={handleSave} onAdd={handleAdd} />
+        ) : (
+          typeof selectedId === "number" && (
+            <Memo
+              key={selectedId}
+              initialData={selectedMemo}
+              isEditing={isEditing}
+              toggleEditing={handelToggleEditing}
+              onSave={handleSave}
+              onDelete={handleDelete}
+            />
+          )
+        )}
+      </div>
+    </LoginContext.Provider>
   );
 };
